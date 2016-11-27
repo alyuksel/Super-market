@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS Produit;
+DROP TABLE IF EXISTS SuperMarket;
+DROP TABLE IF EXISTS Rayon;
+
+
+CREATE TABLE Produit(pId INTEGER PRIMARY KEY AUTOINCREMENT,label text);
+CREATE TABLE Rayon(rId INTEGER, pId INTEGER References Produit(pId));
+CREATE TABLE SuperMarket(sId int,rayons enum, name supermarket, PRIMARY KEY(sId));
+
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+insert into Produit (label) values('nutella');
+
+insert into Rayon values(0,1);
+insert into Rayon values(0,2);
+insert into Rayon values(0,3);
+insert into Rayon values(0,4);
+insert into Rayon values(0,5);
+insert into Rayon values(0,6);
+insert into Rayon values(0,7);
+
+.backup base.db
+
+
+
