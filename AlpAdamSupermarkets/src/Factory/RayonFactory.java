@@ -11,7 +11,7 @@ public class RayonFactory {
 		switch (type){
 		case "alimentaire":
 			return new AlimentaryRay();
-		case "beaty":
+		case "beauty":
 			return new BeautyRay();
 		default:
 			throw new NoSuchRayonException();

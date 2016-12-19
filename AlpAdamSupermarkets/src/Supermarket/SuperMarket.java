@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import Employers.Employer;
 import Produits.Produit;
 import Rayons.Rayon;
@@ -57,7 +59,8 @@ public abstract class SuperMarket {
 	}
 	public <T extends Produit> void addProduct(Collection<T> arrivals){
 		for(T t : arrivals){
-			rayons.get(t.getProductType()).addProduct(t);
+			if(this.rayons.containsKey(t.getProductType()))
+				rayons.get(t.getProductType()).addProduct(t);
 		}
 	}	
 	
@@ -68,6 +71,9 @@ public abstract class SuperMarket {
 				+ "aliments, beauté";
 	}
 	
-
-	
+	public Set<String> getProduct(){
+		return this.rayons.values().stream()
+			.flatMap(r -> r.getProduit().stream())
+			.collect(Collectors.toSet());
+	}
 }

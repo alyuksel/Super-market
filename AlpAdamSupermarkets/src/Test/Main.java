@@ -1,5 +1,6 @@
 package Test;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -11,7 +12,6 @@ import Supermarket.Alimentary;
 import Supermarket.Arrivals;
 import Supermarket.Generalist;
 import Supermarket.SuperMarket;
-import Vue.Vue;
 
 public class Main {
 	public static void main(String[] args) {
@@ -25,15 +25,15 @@ public class Main {
 		HashSet<SuperMarket> smks = new HashSet<>();
 		smks.add(generalist);
 		smks.add(alimentaire);
-		Vue v = new Vue(smks);
 		rayons.add(ray1);
 		rayons.add(ray2);
-		generalist.setRayons(rayons);
-		generalist.addProduct(stocks);
 		alimentaire.setRayons(rayons);
 		alimentaire.addProduct(stocks);
+		generalist.setRayons(rayons);
+		generalist.addProduct(stocks);
 		System.out.println(smks.size());
-		System.out.println(alimentaire.getNumberOfRayon());
+		System.out.println(generalist.getProduct());
+		System.out.println(alimentaire.getProduct());
 		
 		
 	}

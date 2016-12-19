@@ -36,22 +36,21 @@ public class Data {
 		return res;
 	}
 	
+	public boolean insert(String sql){
+		boolean res = false;
+		try {
+			res = statement.execute(sql);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
 	public static void main(String[] args) throws ClassNotFoundException  {
 		Data data = new Data();
 
-		ResultSet res = data.requete("Select * FROM Produit;");
-		try {
-			while(res.next()){
-				System.out.println(res.getInt("pId") +" || "+ res.getString("number"));
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			data.connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		data.insert("insert into Produit(name,number) values ('yves rocher',20);");
 		
 	}
 	

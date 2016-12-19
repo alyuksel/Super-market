@@ -15,6 +15,7 @@ public abstract class Rayon {
 	protected Rayon(ProductType type){
 		this.type = type;
 		this.mapProduct = new HashMap<>();
+		
 	}
 	
 	public ArrayList<String> getProduit(){

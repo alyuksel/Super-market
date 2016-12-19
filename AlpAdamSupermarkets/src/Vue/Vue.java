@@ -4,18 +4,22 @@ package Vue;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import Supermarket.Generalist;
 import Supermarket.SuperMarket;
 
-public class Vue extends JFrame implements Observer {
+public class Vue extends JFrame implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
 	private HashSet<SuperMarket> supermarkets;
 	private SuperMarket market;
 	private JPanel top,bot,right,left;
@@ -56,6 +60,10 @@ public class Vue extends JFrame implements Observer {
 		top.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JButton b1 = new JButton("Infos");
 		JLabel l1 = new JLabel("Generalist");
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("jjj");
+		menuBar.add(menu);
+		top.add(menuBar);
 		top.add(b1);
 		top.add(l1);
 		b1.addActionListener((a)-> l1.setText(getType(Generalist.class)));
@@ -83,16 +91,17 @@ public class Vue extends JFrame implements Observer {
 		bot.add(resume); 
 		resume.addActionListener((e)->data.setText(market.toString()));
 	}
-	private String getType(Class cla){
+	private <T> String getType(Class<T> cla){
 		return supermarkets.stream()
 				.filter(e->e.getClass().equals(cla))
 				.map(e-> e.toString())
 				.collect(Collectors.toList())
 				.get(0);
 	}
+	
 	@Override
-	public void update(Observable o, Object arg) {
-		data.setText(arg.toString());
+	public void actionPerformed(ActionEvent e) {
+		
 	}
 
 }

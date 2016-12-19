@@ -12,7 +12,7 @@ public class Generalist extends SuperMarket{
 
 	
 	public Integer numberOfAlimentaryRay(){
-		return (int) rayons.values().stream()
+		return (int) this.rayons.values().stream()
 				.filter(rayon -> rayon.getProductType().equals(ProductType.Alimantary))
 				.count();
 	}
