@@ -12,7 +12,7 @@ import Rayons.Rayon;
 public class Alimentary extends SuperMarket {
 	
 	public Alimentary(String name) {
-		super(name);
+		super(name,"Alimentary");
 	}
 	
 	@Override

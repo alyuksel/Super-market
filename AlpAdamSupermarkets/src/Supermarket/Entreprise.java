@@ -1,17 +1,21 @@
 package Supermarket;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
-public class Entreprise {
+public class Entreprise extends Observable{
 	private static Entreprise isInstanciate = null;
 	private String name;
-	private Set<SuperMarket> supermarkets;
+	private Map<String,SuperMarket> supermarkets;
+	private SuperMarket currentMarket;
 	
 	private Entreprise(){
 		this.name = "AlpAdamSupermakets";
-		this.supermarkets = new HashSet<>();
+		this.supermarkets = new HashMap<>();
 	}
 	public static Entreprise getMySuperMarkets(){
 		if (isInstanciate == null)
@@ -20,18 +24,18 @@ public class Entreprise {
 	}
 	
 	/*Ajout d'un supermarché*/
-	public boolean addSuperMarket(SuperMarket superMarket){
-		return supermarkets.add(superMarket);
+	public  void addSuperMarket(SuperMarket superMarket){
+		 supermarkets.put(superMarket.getName(), superMarket);
 	}
 	
 	/*Ajout d'une collection de Supermarchés*/
 	public void addSuperMarkets(Collection<SuperMarket> supermarkets){
-		supermarkets.forEach(sm -> this.supermarkets.add(sm));
+		supermarkets.forEach(sm -> this.supermarkets.put(sm.getName(), sm));
 	}
 	
 	/*Suppression d'un supermarché*/
 	public void removeSupermarkets(String name){
-		this.supermarkets.forEach(sm-> {if(sm.getName().equals(name)) this.supermarkets.remove(sm);});
+		this.supermarkets.remove(name);
 	}
 	
 	
@@ -39,8 +43,20 @@ public class Entreprise {
 		return this.name;
 	}
 	
-	public Set<SuperMarket> getSupermarkets(){
+	public Map<String,SuperMarket> getSupermarkets(){
 		return this.supermarkets;
 	}
 	
+	public SuperMarket getCurrentMarket(){
+		return currentMarket;
+	}
+	public void setCurrent(String market) {
+		currentMarket = supermarkets.get(market);
+		update();
+	}
+	
+	public void update(){
+		setChanged();
+		notifyObservers();
+	}
 }

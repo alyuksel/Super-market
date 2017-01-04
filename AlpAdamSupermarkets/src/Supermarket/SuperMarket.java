@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,16 +14,18 @@ import Produits.Produit;
 import Rayons.Rayon;
 import Produits.ProductType;
 
-public abstract class SuperMarket {
+public abstract class SuperMarket{
 	protected boolean isReady;
+	private String type;
 	
 	protected String name;
 	protected Map<ProductType,Rayon> rayons;
 	protected Set<Employer> employes;
 	
 	
-	public SuperMarket(String name) {
+	public SuperMarket(String name,String t) {
 		this.name = name;
+		type = t;
 		rayons = new HashMap<>();
 		employes = new HashSet<>();
 	}
@@ -35,7 +38,11 @@ public abstract class SuperMarket {
 	public boolean isReady() {
 		return this.isReady;
 	}
-
+	
+	public String getType(){
+		return type;
+	}
+	
 	public boolean setRayon(Rayon rayon){
 		if(rayons.containsKey(rayon.getProductType())){
 			System.err.println("Rayon existant");
@@ -69,6 +76,7 @@ public abstract class SuperMarket {
 		return "Nom du magasin : "+getName()+" , "
 				+ "Nombre de rayon : "+getNumberOfRayon()+" , "
 				+ "aliments, beauté";
+	
 	}
 	
 	public Set<String> getProduct(){
@@ -76,4 +84,5 @@ public abstract class SuperMarket {
 			.flatMap(r -> r.getProduit().stream())
 			.collect(Collectors.toSet());
 	}
+	
 }

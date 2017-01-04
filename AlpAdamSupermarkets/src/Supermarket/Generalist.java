@@ -6,7 +6,7 @@ import Produits.ProductType;
 public class Generalist extends SuperMarket{
 	
 	public Generalist(String name) {
-		super(name);
+		super(name,"Generalist");
 		
 	}
 
