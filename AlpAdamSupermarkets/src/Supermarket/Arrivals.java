@@ -21,7 +21,7 @@ public class Arrivals {
 		} catch (ClassNotFoundException e) {
 			System.err.println(e.getMessage());
 		}
-		ResultSet res = this.data.requete("SELECT * FROM Produit;");
+		ResultSet res = this.data.select("SELECT * FROM Produit;");
 		try {
 			while(res.next()){
 				for(int i=0; i<res.getInt("number");i++){

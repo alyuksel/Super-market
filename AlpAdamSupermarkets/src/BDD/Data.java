@@ -26,7 +26,7 @@ public class Data {
 		
 	}
 	
-	public ResultSet requete(String req){
+	public ResultSet select(String req){
 		try {
 			res = statement.executeQuery(req);
 			
@@ -36,7 +36,7 @@ public class Data {
 		return res;
 	}
 	
-	public boolean insert(String sql){
+	public boolean requete(String sql){
 		boolean res = false;
 		try {
 			res = statement.execute(sql);
@@ -50,7 +50,7 @@ public class Data {
 	public static void main(String[] args) throws ClassNotFoundException  {
 		Data data = new Data();
 
-		data.insert("insert into Produit(name,number) values ('yves rocher',20);");
+		data.requete("insert into Produit(name,number) values ('yves rocher',20);");
 		
 	}
 	

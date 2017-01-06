@@ -5,14 +5,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Observable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import Employers.Employer;
+import Produits.ProductType;
 import Produits.Produit;
 import Rayons.Rayon;
-import Produits.ProductType;
 
 public abstract class SuperMarket{
 	protected boolean isReady;
