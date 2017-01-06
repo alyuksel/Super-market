@@ -51,6 +51,7 @@ public class Entreprise extends Observable{
 		return currentMarket;
 	}
 	public void setCurrent(String market) {
+		if(currentMarket!=null)currentMarket.deleteObservers();
 		currentMarket = supermarkets.get(market);
 		update();
 	}

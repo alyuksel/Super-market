@@ -55,7 +55,6 @@ public class MarketsVue extends JPanel implements Observer {
 									entreprise.removeSupermarkets(entreprise.getCurrentMarket().getName());
 									combo.removeItemAt(combo.getSelectedIndex());}});
 		this.add(remove);
-		
 		this.setVisible(true);
 	}
 	

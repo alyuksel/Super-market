@@ -14,10 +14,9 @@ import Produits.Produit;
 import Rayons.Rayon;
 import Produits.ProductType;
 
-public abstract class SuperMarket{
+public abstract class SuperMarket extends Observable{
 	protected boolean isReady;
 	private String type;
-	
 	protected String name;
 	protected Map<ProductType,Rayon> rayons;
 	protected Set<Employer> employes;
@@ -76,13 +75,21 @@ public abstract class SuperMarket{
 		return "Nom du magasin : "+getName()+" , "
 				+ "Nombre de rayon : "+getNumberOfRayon()+" , "
 				+ "aliments, beauté";
-	
 	}
 	
 	public Set<String> getProduct(){
 		return this.rayons.values().stream()
 			.flatMap(r -> r.getProduit().stream())
 			.collect(Collectors.toSet());
+	}
+	
+	public Map<ProductType,Rayon> getRays(){
+		return rayons;
+	}
+	
+	public void update(){
+		setChanged();
+		notifyObservers();
 	}
 	
 }

@@ -38,7 +38,8 @@ public class Main {
 		adamAlpi.addSuperMarket(auchan);
 		
 		Fenetre frame = new Fenetre();
-		frame.addPane(new Market(adamAlpi));
 		frame.addPane(new MarketsVue(adamAlpi));
+		frame.addPane(new Market(adamAlpi));
+		
 	}
 }
