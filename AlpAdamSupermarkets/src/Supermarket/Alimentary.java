@@ -2,10 +2,7 @@ package Supermarket;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import Produits.ProductType;
-import Produits.Produit;
 import Rayons.AlimentaryRay;
 import Rayons.Rayon;
 

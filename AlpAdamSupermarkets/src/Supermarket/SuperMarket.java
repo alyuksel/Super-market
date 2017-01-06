@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import Employers.Employer;
+import Produits.ProductType;
 import Produits.Produit;
 import Rayons.Rayon;
-import Produits.ProductType;
 
 public abstract class SuperMarket extends Observable{
 	protected boolean isReady;
