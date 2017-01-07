@@ -1,7 +1,6 @@
 package Vue;
 
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
-
-import javafx.scene.control.ScrollPane;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

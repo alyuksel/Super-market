@@ -51,11 +51,13 @@ public abstract class SuperMarket extends Observable{
 		rayons.put(rayon.getProductType(), rayon);
 		return true;
 	}
+	
 	public void setRayons(ArrayList<Rayon> instal){
 		for (Rayon rayon : instal) {
 			this.setRayon(rayon);
 		}
 	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -85,6 +87,10 @@ public abstract class SuperMarket extends Observable{
 	
 	public Map<ProductType,Rayon> getRays(){
 		return rayons;
+	}
+	@Override
+	public synchronized void deleteObservers() {
+		super.deleteObservers();
 	}
 	
 	public void update(){

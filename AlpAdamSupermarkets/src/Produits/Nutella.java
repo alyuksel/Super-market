@@ -4,7 +4,7 @@ public class Nutella implements Produit{
 	private ProductType type;
 	
 	public Nutella() {
-		this.type = ProductType.Alimantary;
+		this.type = ProductType.Alimentary;
 	}
 	@Override
 	public String getLabel() {

@@ -1,7 +1,9 @@
 package Produits;
 
+import java.util.stream.Stream;
+
 public enum ProductType {
-	Alimantary,
+	Alimentary,
 	Beauty,
 	Vegetables,
 	Meat,
@@ -11,4 +13,8 @@ public enum ProductType {
 	Movies,
 	Promotion,
 	Cleaning;
+	
+	public static String[] getStrings() {
+	    return Stream.of(ProductType.values()).map(ProductType::toString).toArray(String[]::new);
+	}
 }

@@ -1,16 +1,12 @@
 package Vue;
 
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 
 public class Fenetre extends JFrame {
@@ -21,7 +17,7 @@ public class Fenetre extends JFrame {
 	
 	public Fenetre() {
 		this.setTitle("alpAdam entreprise");
-		this.setSize(550,400);
+		this.setSize(600,600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setLayout(layout);
 		
@@ -36,6 +32,10 @@ public class Fenetre extends JFrame {
 		JMenuItem selectMarkets = new JMenuItem("Select Market");
 		selectMarkets.addActionListener(e->layout.show(panel, "marketview"));
 		panels.add(selectMarkets);
+		
+		JMenuItem commande = new JMenuItem("Commandes");
+		commande.addActionListener(e->layout.show(panel, "commande"));
+		panels.add(commande);
 		
 		menu.add(panels);
 		this.setJMenuBar(menu);

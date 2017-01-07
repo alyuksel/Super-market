@@ -1,6 +1,7 @@
 package Test;
 
 import Supermarket.Entreprise;
+import Vue.CommandeView;
 import Vue.Fenetre;
 import Vue.Market;
 import Vue.MarketsVue;
@@ -29,6 +30,7 @@ public class Main {
 		Fenetre frame = new Fenetre();
 		frame.addPane(new MarketsVue(adamAlpi));
 		frame.addPane(new Market(adamAlpi));
-		
+		frame.addPane(new CommandeView(adamAlpi));
+		//adamAlpi.getSupermarkets().forEach((k,v)-> System.out.println(v.getProduct()));
 	}
 }
