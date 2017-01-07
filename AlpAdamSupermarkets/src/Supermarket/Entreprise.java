@@ -7,10 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-
 import BDD.Data;
 import Factory.MarketsFactory;
 import Factory.NoSuchMarketException;
+import Factory.NoSuchProductException;
+import Factory.ProductFactory;
+import Produits.Nutella;
+import Rayons.AlimentaryRay;
+import Rayons.Rayon;
 
 public class Entreprise extends Observable{
 	private static Entreprise isInstanciate = null;
@@ -30,8 +34,7 @@ public class Entreprise extends Observable{
 			while(res.next()){
 				supermarkets.put(res.getString("name"),this.marketFactory.createMarket(res.getString("name"),res.getString("type")));
 			}
-					
-		} catch (ClassNotFoundException | SQLException | NoSuchMarketException e) {
+		} catch (ClassNotFoundException | SQLException |NoSuchMarketException e) {
 			System.err.println(e.getMessage());
 		}
 	}
