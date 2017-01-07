@@ -29,6 +29,6 @@ public class Main {
 		Fenetre frame = new Fenetre();
 		frame.addPane(new MarketsVue(adamAlpi));
 		frame.addPane(new Market(adamAlpi));
-		
+		adamAlpi.getSupermarkets().forEach((k,v)-> System.out.println(v.getProduct()));
 	}
 }

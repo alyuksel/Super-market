@@ -2,19 +2,12 @@ package Vue;
 
 
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import javafx.scene.control.ScrollPane;
-
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import Produits.Produit;
 import Rayons.Rayon;
 import Supermarket.Entreprise;
-import Supermarket.SuperMarket;
 
 
 public class Market extends JPanel implements Observer {

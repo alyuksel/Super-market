@@ -9,9 +9,9 @@ public class RayonFactory {
 	
 	public Rayon createRayon(String type) throws NoSuchRayonException{
 		switch (type){
-		case "alimentaire":
+		case "Alimentary":
 			return new AlimentaryRay();
-		case "beauty":
+		case "Beauty":
 			return new BeautyRay();
 		default:
 			throw new NoSuchRayonException();

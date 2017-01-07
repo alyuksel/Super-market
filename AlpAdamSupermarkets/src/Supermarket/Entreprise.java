@@ -6,11 +6,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-
-
 import BDD.Data;
 import Factory.MarketsFactory;
 import Factory.NoSuchMarketException;
+import Factory.NoSuchProductException;
+import Factory.NoSuchRayonException;
+import Factory.ProductFactory;
+import Factory.RayonFactory;
+import Produits.ProductType;
 
 public class Entreprise extends Observable{
 	private static Entreprise isInstanciate = null;
@@ -18,20 +21,36 @@ public class Entreprise extends Observable{
 	private String name;
 	private Map<String,SuperMarket> supermarkets;
 	private MarketsFactory marketFactory;
+	private ProductFactory productFactory;
+	private RayonFactory rayonFactory;
 	private SuperMarket currentMarket;
 	
 	private Entreprise(){
 		this.name = "AlpAdamSupermakets";
 		this.marketFactory = new MarketsFactory();
+		this.rayonFactory = new RayonFactory();
+		this.productFactory = new ProductFactory();
 		this.supermarkets = new HashMap<>();
 		try {
 			data = new Data();
 			ResultSet res = data.select("select * from Market");
 			while(res.next()){
-				supermarkets.put(res.getString("name"),this.marketFactory.createMarket(res.getString("name"),res.getString("type")));
+				this.supermarkets.put(res.getString("name"),this.marketFactory.createMarket(res.getString("name"),res.getString("type")));
 			}
-					
-		} catch (ClassNotFoundException | SQLException | NoSuchMarketException e) {
+			ResultSet resray = data.select("select * from Rayon");
+			while(resray.next()){
+				this.supermarkets.get(resray.getString("market")).setRayon(rayonFactory.createRayon(resray.getString("type")));
+			}
+			ResultSet resprod = data.select("select * from Produit");
+			while(resprod.next()){
+				for(int i = 0; i<resprod.getInt("number");i++){
+					this.supermarkets.get(resprod.getString("market")).getRays()
+									.get(ProductType.valueOf(resprod.getString("type")))
+									.addProduct(productFactory.createProduct(resprod.getString("name")));
+				}
+			}
+			
+		} catch (ClassNotFoundException | SQLException | NoSuchMarketException | NoSuchProductException | NoSuchRayonException e) {
 			System.err.println(e.getMessage());
 		}
 	}
@@ -84,4 +103,5 @@ public class Entreprise extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
 }

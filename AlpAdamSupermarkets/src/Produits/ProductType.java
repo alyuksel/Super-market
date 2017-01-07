@@ -1,7 +1,7 @@
 package Produits;
 
 public enum ProductType {
-	Alimantary,
+	Alimentary,
 	Beauty,
 	Vegetables,
 	Meat,
