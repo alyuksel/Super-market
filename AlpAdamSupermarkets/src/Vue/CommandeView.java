@@ -20,6 +20,7 @@ import Produits.ProductType;
 import Supermarket.Entreprise;
 
 public class CommandeView extends JPanel implements Observer  {
+	private static final long serialVersionUID = 1L;
 	private Entreprise entreprise;
 	private JTable table;
 	private DefaultTableModel model = new DefaultTableModel();
