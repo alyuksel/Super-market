@@ -1,6 +1,6 @@
 package Factory;
 
-import Produits.MoinDixPourCent;
+
 import Produits.Nivea;
 import Produits.Nutella;
 import Produits.Prince;
@@ -30,8 +30,7 @@ public class ProductFactory {
 		try {
 			res = createProduct(s).getProductType().equals(ProductType.Alimentary);
 		} catch (NoSuchProductException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());;
 		}
 		return res;
 	}

@@ -3,12 +3,10 @@ package Vue;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Stream;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +20,7 @@ import Factory.NoSuchProductException;
 import Factory.ProductFactory;
 import Produits.AllProduct;
 import Produits.ProductType;
-import Produits.Produit;
+import Supermarket.Commande;
 import Supermarket.Entreprise;
 
 public class CommandeView extends JPanel implements Observer  {
@@ -31,7 +29,8 @@ public class CommandeView extends JPanel implements Observer  {
 	private JTable table;
 	private JComboBox<String> combo = new JComboBox<String>();
 	private DefaultTableModel model = new DefaultTableModel();
-	ProductFactory factory = new ProductFactory();
+	private ProductFactory factory = new ProductFactory();
+	private Commande commande;
 	
 	public CommandeView(Entreprise e) {
 		this.entreprise=e;
@@ -41,6 +40,7 @@ public class CommandeView extends JPanel implements Observer  {
 		table = new JTable(model);
 		this.add(addForm("commande :"),BorderLayout.CENTER);
 		this.add(new JPanel().add(new JScrollPane(table)), BorderLayout.SOUTH);
+		this.commande = new Commande();
 	}
 	
 	private JPanel addForm(String label){
@@ -58,17 +58,12 @@ public class CommandeView extends JPanel implements Observer  {
 		}});
 		JButton clear = new JButton("clear");
 		JButton commander = new JButton("Commander");
-		ArrayList<Produit> arr = new ArrayList<>();
-		commander.addActionListener(l->{for(int i = 0; i<model.getRowCount();i++ ){
-			try {
-				arr.add(factory.createProduct(model.getValueAt(i,0).toString()));
-			} catch (NoSuchProductException e1) {
-				e1.printStackTrace();
-			}
-			
-		}
-			
-		});
+		commander.addActionListener(l->{
+			for(int i=0;i<model.getRowCount();i++){
+				if(!entreprise.getCurrentMarket().getRays().containsKey(ProductType.valueOf(model.getValueAt(i,3).toString())))
+					commande.setRayonForCommande(model.getValueAt(i,3),entreprise.getCurrentMarket().getName());
+				commande.setCommande(model.getValueAt(i,1),Integer.valueOf(model.getValueAt(i,2).toString()),model.getValueAt(i,3),entreprise.getCurrentMarket().getName());
+			}});
 		clear.addActionListener(l->model.setNumRows(0));
 		formPanel.add(new JLabel(label));
 		formPanel.add(combo);
