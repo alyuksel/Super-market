@@ -3,6 +3,7 @@ package Vue;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Stream;
@@ -29,8 +30,8 @@ public class CommandeView extends JPanel implements Observer  {
 	private Entreprise entreprise;
 	private JTable table;
 	private JComboBox<String> combo = new JComboBox<String>();
-	private String[] product;
 	private DefaultTableModel model = new DefaultTableModel();
+	ProductFactory factory = new ProductFactory();
 	
 	public CommandeView(Entreprise e) {
 		this.entreprise=e;
@@ -49,16 +50,32 @@ public class CommandeView extends JPanel implements Observer  {
 		formPanel.setMaximumSize(new Dimension(300,300));
 		JTextField quantite = new JTextField(2);
 		JButton addButton = new JButton("Add");
-		addButton.addActionListener(e->{model.addRow(new Object[]{model.getRowCount()+1,combo.getSelectedItem(),
-											quantite.getText(), combo.getSelectedItem()});});
+		addButton.addActionListener(e->{try {
+			model.addRow(new Object[]{model.getRowCount()+1,combo.getSelectedItem(),
+												quantite.getText(), factory.createProduct(combo.getSelectedItem().toString())
+												.getProductType().toString()});
+		} catch (NoSuchProductException e1) {e1.printStackTrace();
+		}});
 		JButton clear = new JButton("clear");
+		JButton commander = new JButton("Commander");
+		ArrayList<Produit> arr = new ArrayList<>();
+		commander.addActionListener(l->{for(int i = 0; i<model.getRowCount();i++ ){
+			try {
+				arr.add(factory.createProduct(model.getValueAt(i,0).toString()));
+			} catch (NoSuchProductException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+			
+		});
 		clear.addActionListener(l->model.setNumRows(0));
 		formPanel.add(new JLabel(label));
 		formPanel.add(combo);
 		formPanel.add(new JLabel("quantité :"));	formPanel.add(quantite);
 		formPanel.add(addButton);
 		formPanel.add(clear);
-		
+		formPanel.add(commander);
 		
 		return formPanel;
 		}
@@ -72,8 +89,7 @@ public class CommandeView extends JPanel implements Observer  {
 	public void update(Observable o, Object arg) {
 		if(o.getClass().getSimpleName().equals("Entreprise")){
 			combo.removeAllItems();
-			ProductFactory factory = new ProductFactory();
-			product = AllProduct.getStrings();
+			String[] product = AllProduct.getStrings();
 			if(entreprise.getCurrentMarket()!=null &&entreprise.getCurrentMarket().getType().equals("Alimentary")){
 				product = Stream.of(AllProduct.getStrings()).filter((String s)->factory.isAlimentary(s)).toArray(String[]::new);
 			}
