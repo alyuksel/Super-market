@@ -1,10 +1,8 @@
 package Produits;
 
 public class MoinDixPourCent extends Promotion {
-	
-	public MoinDixPourCent(Produit produit) {
+	public MoinDixPourCent(Produit produit,int i) {
 		super(produit);
-		
 	}
 	
 	@Override

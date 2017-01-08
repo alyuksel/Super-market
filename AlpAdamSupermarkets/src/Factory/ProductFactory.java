@@ -3,6 +3,8 @@ package Factory;
 import Produits.MoinDixPourCent;
 import Produits.Nivea;
 import Produits.Nutella;
+import Produits.Prince;
+import Produits.ProductType;
 import Produits.Produit;
 import Produits.YvesRocher;
 
@@ -13,19 +15,24 @@ public class ProductFactory {
 			return new Nivea();
 		case "nutella":
 			return new Nutella();
-		case "yves rocher":
+		case "yvesrocher":
 			return new YvesRocher();
+		case "prince":
+			return new Prince();
 		default:
 			throw new NoSuchProductException();
 		}
 	}
 	
-	public Produit createPromotionnalProduct(Produit produit, String name) throws NoSuchPromotionException{
-		switch (name) {
-		case "10%":
-			return new MoinDixPourCent(produit);
-		default:
-			throw new NoSuchPromotionException();
+	
+	public  boolean isAlimentary(String s){
+		Boolean res=false;
+		try {
+			res = createProduct(s).getProductType().equals(ProductType.Alimentary);
+		} catch (NoSuchProductException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return res;
 	}
 }

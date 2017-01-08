@@ -2,7 +2,7 @@ package Produits;
 
 import java.util.stream.Stream;
 
-public enum ProductType {
+public enum ProductType{
 	Alimentary,
 	Beauty,
 	Vegetables,

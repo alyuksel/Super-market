@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Stream;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,13 +17,19 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Factory.NoSuchProductException;
+import Factory.ProductFactory;
+import Produits.AllProduct;
 import Produits.ProductType;
+import Produits.Produit;
 import Supermarket.Entreprise;
 
 public class CommandeView extends JPanel implements Observer  {
 	private static final long serialVersionUID = 1L;
 	private Entreprise entreprise;
 	private JTable table;
+	private JComboBox<String> combo = new JComboBox<String>();
+	private String[] product;
 	private DefaultTableModel model = new DefaultTableModel();
 	
 	public CommandeView(Entreprise e) {
@@ -36,19 +43,18 @@ public class CommandeView extends JPanel implements Observer  {
 	}
 	
 	private JPanel addForm(String label){
+		entreprise.addObserver(this);
 		JPanel formPanel = new JPanel();
 		formPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		formPanel.setMaximumSize(new Dimension(300,300));
-		JTextField text = new JTextField(15);
 		JTextField quantite = new JTextField(2);
 		JButton addButton = new JButton("Add");
-		JComboBox<String> combo = new JComboBox<String>(ProductType.getStrings());
-		addButton.addActionListener(e->{model.addRow(new Object[]{model.getRowCount()+1,text.getText(),
+		addButton.addActionListener(e->{model.addRow(new Object[]{model.getRowCount()+1,combo.getSelectedItem(),
 											quantite.getText(), combo.getSelectedItem()});});
 		JButton clear = new JButton("clear");
 		clear.addActionListener(l->model.setNumRows(0));
 		formPanel.add(new JLabel(label));
-		formPanel.add(text);	formPanel.add(combo);
+		formPanel.add(combo);
 		formPanel.add(new JLabel("quantité :"));	formPanel.add(quantite);
 		formPanel.add(addButton);
 		formPanel.add(clear);
@@ -64,7 +70,15 @@ public class CommandeView extends JPanel implements Observer  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		if(o.getClass().getSimpleName().equals("Entreprise")){
+			combo.removeAllItems();
+			ProductFactory factory = new ProductFactory();
+			product = AllProduct.getStrings();
+			if(entreprise.getCurrentMarket()!=null &&entreprise.getCurrentMarket().getType().equals("Alimentary")){
+				product = Stream.of(AllProduct.getStrings()).filter((String s)->factory.isAlimentary(s)).toArray(String[]::new);
+			}
+			for(String s : product)combo.addItem(s);
+		}
 	}
 
 }
