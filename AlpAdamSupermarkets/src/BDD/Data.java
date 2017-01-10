@@ -48,9 +48,7 @@ public class Data {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException  {
-		Data data = new Data();
-
-		data.requete("insert into Produit(name,number) values ('yves rocher',20);");
+		
 		
 	}
 	
