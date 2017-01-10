@@ -1,33 +1,21 @@
 package Vue;
 
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import Produits.Produit;
 import Rayons.Rayon;
-import Supermarket.Alimentary;
 import Supermarket.Entreprise;
-import Supermarket.Generalist;
-import Supermarket.SuperMarket;
 
 
 public class Market extends JPanel implements Observer {
@@ -56,7 +44,9 @@ public class Market extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o.getClass().getSimpleName().equals("Entreprise")){
+			System.out.println("j'ai changé de magasin");
 			entreprise.getCurrentMarket().addObserver(this);
+		}
 			model.setNumRows(0);
 			for(Rayon r :entreprise.getCurrentMarket().getRays().values()){
 				for(Entry<String,ArrayList<Produit>> e : r.getMapProduct().entrySet()){
@@ -65,6 +55,5 @@ public class Market extends JPanel implements Observer {
 				}
 			}
 		
-		}
 	}
 }
