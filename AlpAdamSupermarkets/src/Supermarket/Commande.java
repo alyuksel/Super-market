@@ -5,7 +5,10 @@ import java.util.Observable;
 
 import BDD.Data;
 import Factory.NoSuchProductException;
+import Factory.NoSuchRayonException;
 import Factory.ProductFactory;
+import Factory.RayonFactory;
+import Produits.ProductType;
 import Produits.Produit;
 
 public class Commande extends Observable{
@@ -23,13 +26,21 @@ public class Commande extends Observable{
 	}
 	
 	
-	public void setCommande(Object product,int quantite,Object type, Object market){
+	public void setCommande(Object product,int quantite,Object type, SuperMarket market){
 			try {
 				for(int j = 0; j<quantite;j++)
 					this.commande.add(factory.createProduct(product.toString()));
-			data.requete("insert into Produit(name,type,number,market) values ('"+product.toString()+"','"+
-					type+"',"+quantite+",'"+market+"')");
-			} catch (NoSuchProductException e) {System.err.println(e.getMessage());}
+				if(market.getRays().containsKey(ProductType.valueOf(type.toString()))){
+					market.addProduct(commande);
+					market.update();
+				}else{
+					market.setRayon(new RayonFactory().createRayon(type.toString()));
+					market.addProduct(commande);
+					market.update();
+				}
+				data.requete("insert into Produit(name,type,number,market) values ('"+product.toString()+"','"+
+					type+"',"+quantite+",'"+market.getName()+"')");
+			} catch (NoSuchProductException | NoSuchRayonException e) {System.err.println(e.getMessage());}
 		
 	}
 	

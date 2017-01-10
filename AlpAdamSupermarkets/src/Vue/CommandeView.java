@@ -62,8 +62,10 @@ public class CommandeView extends JPanel implements Observer  {
 			for(int i=0;i<model.getRowCount();i++){
 				if(!entreprise.getCurrentMarket().getRays().containsKey(ProductType.valueOf(model.getValueAt(i,3).toString())))
 					commande.setRayonForCommande(model.getValueAt(i,3),entreprise.getCurrentMarket().getName());
-				commande.setCommande(model.getValueAt(i,1),Integer.valueOf(model.getValueAt(i,2).toString()),model.getValueAt(i,3),entreprise.getCurrentMarket().getName());
+				commande.setCommande(model.getValueAt(i,1),Integer.valueOf(model.getValueAt(i,2).toString()),model.getValueAt(i,3),entreprise.getCurrentMarket());
+				
 			}});
+		
 		clear.addActionListener(l->model.setNumRows(0));
 		formPanel.add(new JLabel(label));
 		formPanel.add(combo);
