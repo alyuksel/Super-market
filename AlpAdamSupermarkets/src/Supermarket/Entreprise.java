@@ -80,6 +80,8 @@ public class Entreprise extends Observable{
 	public void removeSupermarkets(String name){
 		this.supermarkets.remove(name);
 		data.requete("delete from Market where name='"+name+"'");
+		data.requete("delete from Produit where market='"+name+"'");
+		data.requete("delete from Rayon where market='"+name+"'");
 	}
 	
 	

@@ -32,11 +32,9 @@ public class Commande extends Observable{
 					this.commande.add(factory.createProduct(product.toString()));
 				if(market.getRays().containsKey(ProductType.valueOf(type.toString()))){
 					market.addProduct(commande);
-					market.update();
 				}else{
 					market.setRayon(new RayonFactory().createRayon(type.toString()));
 					market.addProduct(commande);
-					market.update();
 				}
 				data.requete("insert into Produit(name,type,number,market) values ('"+product.toString()+"','"+
 					type+"',"+quantite+",'"+market.getName()+"')");
