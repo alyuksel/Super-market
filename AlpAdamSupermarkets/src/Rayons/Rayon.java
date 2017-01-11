@@ -10,12 +10,11 @@ import Tools.GenericClass;
 
 public abstract class Rayon {
 	private ProductType type;
-	private HashMap <String, ArrayList<Produit>> mapProduct ;
+	private HashMap <String, ArrayList<Produit>> mapProduct;
 	
 	protected Rayon(ProductType type){
 		this.type = type;
 		this.mapProduct = new HashMap<>();
-		
 	}
 	
 	public ArrayList<String> getProduit(){
@@ -33,6 +32,7 @@ public abstract class Rayon {
 				.filter(prod->prod.getPrice()>=price)
 				.count();
 	}
+	
 	public Integer numberOfProduct(){
 		return (int) mapProduct
 				.values()

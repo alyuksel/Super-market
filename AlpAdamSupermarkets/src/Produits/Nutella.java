@@ -8,7 +8,7 @@ public class Nutella implements Produit{
 	}
 	@Override
 	public String getLabel() {
-		return "Nutella";
+		return "nutella";
 	}
 
 	@Override

@@ -7,7 +7,7 @@ public class YvesRocher implements Produit {
 	}
 	@Override
 	public String getLabel() {
-		return "Yves Rocher";
+		return "yvesrocher";
 	}
 
 	@Override

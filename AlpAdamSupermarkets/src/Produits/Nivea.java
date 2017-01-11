@@ -7,7 +7,7 @@ public class Nivea implements Produit {
 	}
 	@Override
 	public String getLabel() {
-		return "Nivea";
+		return "nivea";
 	}
 
 	@Override
