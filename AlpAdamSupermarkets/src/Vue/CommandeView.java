@@ -27,6 +27,7 @@ public class CommandeView extends JPanel implements Observer  {
 	private static final long serialVersionUID = 1L;
 	private Entreprise entreprise;
 	private JTable table;
+	private JLabel actual=new JLabel();
 	private JComboBox<String> combo = new JComboBox<String>();
 	private DefaultTableModel model = new DefaultTableModel();
 	private ProductFactory factory = new ProductFactory();
@@ -36,6 +37,8 @@ public class CommandeView extends JPanel implements Observer  {
 		this.entreprise=e;
 		this.setLayout(new BorderLayout());
 		this.setSize(300, 300);
+		this.actual.setText("selectionner un magasin dans Select Market");
+		this.add(actual,BorderLayout.NORTH);
 		model.addColumn("Id"); model.addColumn("Nom"); model.addColumn("Quantité"); model.addColumn("Type");
 		table = new JTable(model);
 		this.add(addForm("commande :"),BorderLayout.CENTER);
@@ -82,6 +85,7 @@ public class CommandeView extends JPanel implements Observer  {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		this.actual.setText(entreprise.getCurrentMarket().toString());
 		if(o.getClass().getSimpleName().equals("Entreprise")){
 			combo.removeAllItems();
 			String[] product = AllProduct.getStrings();

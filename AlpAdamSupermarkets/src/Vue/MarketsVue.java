@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import Supermarket.Alimentary;
 import Supermarket.Entreprise;
@@ -27,7 +29,7 @@ public class MarketsVue extends JPanel implements Observer {
 		this.entreprise.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setSize(400,200);
-		this.actuel.setText("nom magasin : ");
+		this.actuel.setText("selectionner un magasin dans Select Market");
 		this.add(this.actuel);
 		addForm("Ajouter Market");
 		setBox();
@@ -73,8 +75,7 @@ public class MarketsVue extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.actuel.setText("nom magasin : "+ this.entreprise.getCurrentMarket().getName()
-				+ " ,  type : "+ this.entreprise.getCurrentMarket().getType());
+		this.actuel.setText(entreprise.getCurrentMarket().toString());
 	}
 	
 }

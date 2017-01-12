@@ -21,6 +21,7 @@ import Supermarket.Entreprise;
 public class Market extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Entreprise entreprise;
+	private JLabel actual = new JLabel();
 	private DefaultTableModel model = new DefaultTableModel();
 	
 	public Market(Entreprise e) {
@@ -28,7 +29,8 @@ public class Market extends JPanel implements Observer {
 		entreprise.addObserver(this);
 		this.setSize(400,200);
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.add(new JLabel("resumé du magasin : "));
+		this.actual.setText("selectionner un magasin dans Select Market");
+		this.add(this.actual);
 		this.add(new JScrollPane(new JTable(model)));
 		model.addColumn("Type"); model.addColumn("Nom"); model.addColumn("Quantité"); model.addColumn("Prix/u");
 		this.setVisible(true);
@@ -43,8 +45,8 @@ public class Market extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		this.actual.setText(entreprise.getCurrentMarket().toString());
 		if(o.getClass().getSimpleName().equals("Entreprise")){
-			System.out.println("j'ai changé de magasin");
 			entreprise.getCurrentMarket().addObserver(this);
 		}
 			model.setNumRows(0);

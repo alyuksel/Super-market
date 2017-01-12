@@ -43,10 +43,12 @@ public class Sales {
 			}
 			recette = recette + (numberOfSoldProduct*price);
 		}
-		data.requete("insert into Ventes(name,type,recette,market) values ('"+produit+"','"+type.toString()+"',"+recette+",'"+market.getName()+"')");
+		data.requete("insert into Ventes(name,type,recette,market,number) values ('"+produit+"','"+type.toString()+"',"+recette+",'"+market.getName()+"',"+number+")");
+		
 	}
 	
-	public double getNumberOfSales(){
+	
+	public double getBenefits(){
 		return this.recette;
 	}
 	public static void main(String[] args) {
@@ -63,6 +65,7 @@ public class Sales {
 		System.out.println(gen.getRays().get(ProductType.Alimentary).getMapProduct().get("nutella"));
 		Sales sale = new Sales(gen);
 		sale.productSold("nutella", 3);
+		sale.productSold("nutella", 2);
 		System.out.println(sale.sales);
 		System.out.println(gen.getRays().get(ProductType.Alimentary).getMapProduct().get("nutella"));
 		System.out.println(sale.recette);

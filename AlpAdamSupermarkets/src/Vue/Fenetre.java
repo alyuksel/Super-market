@@ -37,6 +37,10 @@ public class Fenetre extends JFrame {
 		commande.addActionListener(e->layout.show(panel, "commande"));
 		panels.add(commande);
 		
+		JMenuItem ventes = new JMenuItem("Ventes");
+		ventes.addActionListener(e->layout.show(panel,"salesView"));
+		panels.add(ventes);
+		
 		menu.add(panels);
 		this.setJMenuBar(menu);
 		

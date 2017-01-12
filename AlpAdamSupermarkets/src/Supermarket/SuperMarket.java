@@ -76,7 +76,7 @@ public abstract class SuperMarket extends Observable{
 	public String toString() {
 		return "Nom du magasin : "+getName()+" , "
 				+ "Nombre de rayon : "+getNumberOfRayon()+" , "
-				+ "aliments, beauté";
+				+getType();
 	}
 	
 	public Set<String> getProduct(){
