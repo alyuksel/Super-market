@@ -104,13 +104,6 @@ public class Market extends JPanel implements Observer {
 		}
 			clearTable();
 			toDisplay("All");
-			model.setNumRows(0);
-			for(Rayon r :entreprise.getCurrentMarket().getRays().values()){
-				for(Entry<String,ArrayList<Produit>> e : r.getMapProduct().entrySet()){
-					if(!e.getValue().isEmpty())
-					model.addRow(new Object[]{r.getProductType(),e.getKey(),e.getValue().size(),e.getValue().get(0).getPrice()});
-				}
-			}
 	}
 	
 	}
