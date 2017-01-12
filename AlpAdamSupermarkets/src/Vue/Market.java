@@ -56,6 +56,5 @@ public class Market extends JPanel implements Observer {
 					model.addRow(new Object[]{r.getProductType(),e.getKey(),e.getValue().size(),e.getValue().get(0).getPrice()});
 				}
 			}
-		
 	}
 }

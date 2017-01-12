@@ -3,6 +3,7 @@ package Vue;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +22,8 @@ public class SalesView extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Entreprise entreprise;
 	private JLabel actuel = new JLabel();
+	private double recette=0;
+	private JLabel recetteLabel= new JLabel();
 	private DefaultTableModel model = new DefaultTableModel();
 	private Sales sales;
 	
@@ -34,6 +37,7 @@ public class SalesView extends JPanel implements Observer {
 		this.add(addForm("ventes : "));
 		model.addColumn("Produit");model.addColumn("Type");model.addColumn("Recette");model.addColumn("NbPrdVendus");
 		this.add(new JPanel().add(new JScrollPane(new JTable(model))), BorderLayout.SOUTH);		
+		this.setVisible(true);
 		
 	}
 	
@@ -44,10 +48,13 @@ public class SalesView extends JPanel implements Observer {
 		JTextField produit = new JTextField(20);
 		JTextField quantite = new JTextField(2);
 		JButton saleButton = new JButton("Sale");
-		formPanel.add(new JLabel(label));
+		saleButton.addActionListener(e-> {sales.productSold(produit.getText().trim(),quantite.getText().trim());System.out.println("Sale");});
+		formPanel.add(new JLabel(label)); 
 		formPanel.add(produit);formPanel.add(new JLabel("produit"));
 		formPanel.add(quantite);formPanel.add(new JLabel("Qte"));
 		formPanel.add(saleButton);
+		formPanel.add(this.recetteLabel);
+		sales = new Sales(entreprise.getCurrentMarket());
 		
 		return formPanel;
 		
@@ -58,15 +65,20 @@ public class SalesView extends JPanel implements Observer {
 		return "salesView";
 	}
 	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		this.actuel.setText(entreprise.getCurrentMarket().toString());
 		if(o.getClass().getSimpleName().equals("Entreprise")){
 			entreprise.getCurrentMarket().addObserver(this);
 		}
+		sales.setMarket(entreprise.getCurrentMarket());
 		model.setNumRows(0);
-		
-		
+		for(ArrayList<String> as : sales.getSalesDB()){
+			model.addRow(new Object[]{as.get(0),as.get(1),as.get(2),as.get(3)});
+			recette = recette + Double.valueOf(as.get(2));
+		}
+		recetteLabel.setText("recette du magasin " + recette + " euros");
 	}
 
 }
