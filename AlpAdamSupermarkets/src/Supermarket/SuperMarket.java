@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import Employers.Employer;
+import Factory.NoSuchProductException;
+import Factory.ProductFactory;
 import Produits.ProductType;
 import Produits.Produit;
 import Rayons.Rayon;
@@ -76,7 +78,7 @@ public abstract class SuperMarket extends Observable{
 	public String toString() {
 		return "Nom du magasin : "+getName()+" , "
 				+ "Nombre de rayon : "+getNumberOfRayon()+" , "
-				+getType();
+				+"Type : "+getType();
 	}
 	
 	public Set<String> getProduct(){
@@ -98,4 +100,9 @@ public abstract class SuperMarket extends Observable{
 		notifyObservers();
 	}
 	
+	public Map<String,Integer> toStringInt(){
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		rayons.values().forEach(r->r.getMapProduct().forEach((k,v)->map.put(k,v.size())) );
+		return map;
+	}
 }

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import Produits.Produit;
 
 
@@ -50,6 +53,10 @@ public class GenericClass {
 	public static <T,L extends Collection<T>> Integer getNumberOf(L set, Class<?> cls){
 
 		return 0;
+	}
+	
+	public static <T> Stream<T> getFiltredStream(Stream<T> st, Predicate<? super T> funct){
+		return st.filter(funct);
 	}
 	
 }
