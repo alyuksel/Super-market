@@ -82,6 +82,7 @@ public class Entreprise extends Observable{
 		data.requete("delete from Market where name='"+name+"'");
 		data.requete("delete from Produit where market='"+name+"'");
 		data.requete("delete from Rayon where market='"+name+"'");
+		data.requete("delete from Ventes where market='"+name+"'");
 	}
 	
 	

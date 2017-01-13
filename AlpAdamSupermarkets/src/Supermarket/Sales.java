@@ -41,17 +41,14 @@ public class Sales {
 			} catch (NoSuchProductException e) {System.err.println(e.getMessage());}
 			for(int i=0;i<Integer.valueOf(number);i++){
 				sales.add(market.getRays().get(type).getMapProduct().get(produit).get(i));
-				System.out.println("VENDUUUUUUUUU");
 				market.getRays().get(type).getMapProduct().get(produit).remove(i);
-				System.out.println("VIREEEEEE");
 				numberOfSoldProduct ++;
 			}
 			recette = recette + (numberOfSoldProduct*price);
 		}
-		this.market.update();
 		data.requete("insert into Ventes(name,type,recette,market,number) values ('"+produit+"','"+type.toString()+"',"+recette+",'"+market.getName()+"',"+number+")");
 		data.requete("update Produit set number = number - "+number+" where name = '"+produit+"' and market = '"+market.getName()+"'");
-		System.out.println("REQUEEEEEEEEETE");
+		this.market.update();
 	}
 	
 	private ArrayList<ArrayList<String>> getSalesOnDB(){
@@ -87,25 +84,5 @@ public class Sales {
 		getSalesOnDB();
 	}
 	
- 	public static void main(String[] args) {
-		Generalist gen = new Generalist("Alpi");
-		gen.setRayon(new AlimentaryRay());
-		ArrayList<Produit> arr = new ArrayList<>();
-		arr.add(new Nutella());
-		arr.add(new Nutella());
-		arr.add(new Nutella());
-		arr.add(new Nutella());
-		arr.add(new Nutella());
-		arr.add(new Nutella());
-		gen.addProduct(arr);
-		System.out.println(gen.getRays().get(ProductType.Alimentary).getMapProduct().get("nutella"));
-		Sales sale = new Sales(gen);
-		sale.productSold("nutella", "3");
-		sale.productSold("nutella", "2");
-		System.out.println(sale.getSalesDB());
-		
-		
-		
-		
-	}
+ 	
 }

@@ -1,6 +1,7 @@
 package Vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Produits.AllProduct;
 import Supermarket.Entreprise;
 import Supermarket.Sales;
 
@@ -24,6 +26,7 @@ public class SalesView extends JPanel implements Observer {
 	private JLabel actuel = new JLabel();
 	private double recette=0;
 	private JLabel recetteLabel= new JLabel();
+	private JLabel erreur = new JLabel();
 	private DefaultTableModel model = new DefaultTableModel();
 	private Sales sales;
 	
@@ -48,12 +51,17 @@ public class SalesView extends JPanel implements Observer {
 		JTextField produit = new JTextField(20);
 		JTextField quantite = new JTextField(2);
 		JButton saleButton = new JButton("Sale");
-		saleButton.addActionListener(e-> {sales.productSold(produit.getText().trim(),quantite.getText().trim());System.out.println("Sale");});
+		
 		formPanel.add(new JLabel(label)); 
 		formPanel.add(produit);formPanel.add(new JLabel("produit"));
 		formPanel.add(quantite);formPanel.add(new JLabel("Qte"));
 		formPanel.add(saleButton);
 		formPanel.add(this.recetteLabel);
+		this.erreur.setForeground(Color.RED);
+		formPanel.add(this.erreur);
+		saleButton.addActionListener(e-> {if((AllProduct.AllProductList().contains(produit.getText()))&&(!Integer.valueOf(quantite.getText()).equals(0)))
+			{sales.productSold(produit.getText().trim(),quantite.getText().trim());this.erreur.setText("");}
+				else this.erreur.setText("erreur de saisie");;});
 		sales = new Sales(entreprise.getCurrentMarket());
 		
 		return formPanel;
@@ -72,8 +80,8 @@ public class SalesView extends JPanel implements Observer {
 		if(o.getClass().getSimpleName().equals("Entreprise")){
 			entreprise.getCurrentMarket().addObserver(this);
 		}
-		sales.setMarket(entreprise.getCurrentMarket());
 		model.setNumRows(0);
+		sales.setMarket(entreprise.getCurrentMarket());		
 		for(ArrayList<String> as : sales.getSalesDB()){
 			model.addRow(new Object[]{as.get(0),as.get(1),as.get(2),as.get(3)});
 			recette = recette + Double.valueOf(as.get(2));
