@@ -10,8 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import Employers.Employer;
-import Factory.NoSuchProductException;
-import Factory.ProductFactory;
 import Produits.ProductType;
 import Produits.Produit;
 import Rayons.Rayon;

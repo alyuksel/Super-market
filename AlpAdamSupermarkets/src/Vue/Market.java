@@ -3,10 +3,7 @@ package Vue;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 import Factory.NoSuchProductException;
 import Factory.ProductFactory;
 import Produits.Produit;
-import Rayons.Rayon;
 import Supermarket.Entreprise;
 
 

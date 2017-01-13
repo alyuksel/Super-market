@@ -48,6 +48,7 @@ public class Sales {
 			}
 			recette = recette + (numberOfSoldProduct*price);
 		}
+		this.market.update();
 		data.requete("insert into Ventes(name,type,recette,market,number) values ('"+produit+"','"+type.toString()+"',"+recette+",'"+market.getName()+"',"+number+")");
 		data.requete("update Produit set number = number - "+number+" where name = '"+produit+"' and market = '"+market.getName()+"'");
 		System.out.println("REQUEEEEEEEEETE");
