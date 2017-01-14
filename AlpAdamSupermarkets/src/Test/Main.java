@@ -9,6 +9,7 @@ import Vue.SalesView;
 
 
 public class Main {
+	
 	public static void main(String[] args) {
 		Entreprise adamAlpi = Entreprise.getMySuperMarkets();
 		Fenetre frame = new Fenetre();
@@ -17,4 +18,5 @@ public class Main {
 		frame.addPane(new CommandeView(adamAlpi));
 		frame.addPane(new SalesView(adamAlpi));
 	}
+	
 }

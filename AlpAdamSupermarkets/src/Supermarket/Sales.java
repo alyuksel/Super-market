@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import BDD.Data;
 import Factory.NoSuchProductException;
 import Factory.ProductFactory;
-import Produits.Nutella;
 import Produits.ProductType;
 import Produits.Produit;
-import Rayons.AlimentaryRay;
 
 public class Sales {
 	private ArrayList<Produit> sales;
@@ -18,11 +16,10 @@ public class Sales {
 	private double recette;
 	private SuperMarket market;
 	private Data data;
-	public Sales(SuperMarket market) {
+	public Sales() {
 		this.sales = new ArrayList<>();
 		this.salesOnDB = new ArrayList<>();
 		this.recette = 0;
-		this.market = market;
 		try {
 			this.data = new Data();
 		} catch (ClassNotFoundException e) {
@@ -61,10 +58,13 @@ public class Sales {
 				row.add(""+res.getInt("recette"));
 				row.add(""+res.getInt("number"));
 				salesOnDB.add(row);
+
+				recette = recette + res.getInt("recette");
  			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
+		
 		return salesOnDB;
 	}
 	public double getBenefits(){
@@ -81,6 +81,8 @@ public class Sales {
 	
 	public void setMarket(SuperMarket market){
 		this.market = market;
+		recette = 0;
+		getSalesDB().clear();
 		getSalesOnDB();
 	}
 	
