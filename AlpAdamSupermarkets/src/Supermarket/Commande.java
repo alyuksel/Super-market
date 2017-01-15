@@ -56,8 +56,4 @@ public class Commande extends Observable{
 		return this.commande;
 	}
 	
-
-
-	
-	
 }

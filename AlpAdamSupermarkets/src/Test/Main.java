@@ -1,5 +1,7 @@
 package Test;
 
+import Produits.Nutella;
+import Produits.Promotion;
 import Supermarket.Entreprise;
 import Vue.CommandeView;
 import Vue.EmployersView;

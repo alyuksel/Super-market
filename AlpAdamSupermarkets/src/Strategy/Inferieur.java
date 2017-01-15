@@ -11,7 +11,7 @@ import Tools.GenericClass;
 public class Inferieur extends Choice {
 
 	public Inferieur() {
-		super("Inferieur à");
+		super("Prix inf. à");
 	}
 
 	@Override

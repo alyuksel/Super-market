@@ -86,8 +86,6 @@ public class Market extends JPanel implements Observer {
 		model.setRowCount(0);
 	}
 
-	
-
 	@Override
 	public void update(Observable o, Object arg) {
 		this.actual.setText(entreprise.getCurrentMarket().toString());

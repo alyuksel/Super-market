@@ -1,15 +1,11 @@
 package Produits;
 
 public class Promotion implements Produit{
-	protected ProductType type;
 	protected Produit produit;
 	private Integer pourcentage;
 	
-	
-	
 	public Promotion(Produit produit, Integer pourcentage){
 		this.produit = produit;
-		this.type = produit.getProductType();
 		this.pourcentage = pourcentage;
 	}
 	
@@ -25,7 +21,7 @@ public class Promotion implements Produit{
 	
 	@Override
 	public ProductType getProductType() {
-		return this.type;
+		return this.produit.getProductType();
 	}
 	
 	public void affiche() {
