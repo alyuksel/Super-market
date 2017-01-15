@@ -28,6 +28,11 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import Factory.NoSuchProductException;
 import Factory.ProductFactory;
 import Produits.Produit;
+import Strategy.All;
+import Strategy.Choice;
+import Strategy.Inferieur;
+import Strategy.Name;
+import Strategy.Superieur;
 import Supermarket.Entreprise;
 import Tools.GenericClass;
 
@@ -55,46 +60,21 @@ public class Market extends JPanel implements Observer {
 	
 	private Component addSort() {
 		JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JComboBox<String> combo = new JComboBox<String>(new String[]{"All","Nom","Inferieur à","Superieur à"});
+		JComboBox<Choice> combo = new JComboBox<Choice>(new Choice[]{ new All(),new Name(),new Superieur(), new Inferieur()});
 		JButton ok = new JButton("Valider");
 		ok.addActionListener(l->{
 			clearTable();
-			toDisplay(combo.getSelectedItem().toString());
+			toDisplay(combo.getSelectedItem());
 		});
 		formPanel.add(new JLabel("Afficher : ")); formPanel.add(combo);
 		formPanel.add(text); formPanel.add(ok);
 		return formPanel;
 	}
 
-	private void toDisplay(String val) {
+	private void toDisplay(Object val) {
 		Map<String,Integer> allProduct = entreprise.getCurrentMarket().toStringInt();
-		ProductFactory fact = new ProductFactory();
-		try{
-			switch (val) { 
-			case "Nom": {
-					Produit p = fact.createProduct(text.getText());
-				model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(text.getText()),p.getPrice()});
-			}break;
-			
-			case "All":{
-				for(String s : allProduct.keySet()){
-					Produit p = fact.createProduct(s);
-					model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(s),p.getPrice()});
-				}
-			}break;
-			
-			case "Inferieur à" : {
-				GenericClass.getFiltredProd(allProduct.keySet().stream(),(Produit p)-> p.getPrice()<Double.valueOf(text.getText()))
-				.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()),p.getPrice()}));
-			}break;
-			case "Superieur à" : {
-				GenericClass.getFiltredProd(allProduct.keySet().stream(),(Produit p)-> p.getPrice()>Double.valueOf(text.getText()))
-				.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()),p.getPrice()}));
-			}break;
-			default:
-				break;
-			}
-		} catch (NoSuchProductException e) {} 
+		Choice item = (Choice) val;
+		item.eval(model, allProduct, text);
 	}
 
 
@@ -115,7 +95,7 @@ public class Market extends JPanel implements Observer {
 			entreprise.getCurrentMarket().addObserver(this);
 		}
 			clearTable();
-			toDisplay("All");
+			toDisplay(new All());
 	}
 	
 	}
