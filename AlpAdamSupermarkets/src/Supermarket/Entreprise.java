@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 
 import BDD.Data;
+import Employers.Employer;
 import Factory.MarketsFactory;
 import Factory.NoSuchMarketException;
 import Factory.NoSuchProductException;
@@ -49,6 +51,10 @@ public class Entreprise extends Observable{
 									.get(ProductType.valueOf(resprod.getString("type")))
 									.addProduct(productFactory.createProduct(resprod.getString("name")));
 				}
+			}
+			ResultSet employers = data.select("select * from Employer");
+			while(employers.next()){
+				this.addEmployerInSupermarkets(employers.getString("prenom"),employers.getString("nom"),employers.getString("type"),employers.getString("market"));
 			}
 			
 		} catch (ClassNotFoundException | SQLException | NoSuchMarketException | NoSuchProductException | NoSuchRayonException e) {
@@ -102,7 +108,16 @@ public class Entreprise extends Observable{
 		currentMarket = supermarkets.get(market);
 		update();
 	}
+	public Set<Employer> employers(){
+		return getCurrentMarket().getEmployer();
+	}
 	
+	public void addEmployer(String firstName, String lastName, String type){
+		this.getCurrentMarket().addEmployers(firstName, lastName, type);
+	}
+	public void addEmployerInSupermarkets(String firstName, String lastName, String type,String market){
+		this.supermarkets.values().forEach(s -> {if(s.getName().equals(market))s.addEmployers(firstName, lastName, type);});
+	}
 	public void update(){
 		setChanged();
 		notifyObservers();

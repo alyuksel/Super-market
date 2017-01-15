@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import Employers.Employer;
+import Factory.EmployerFactory;
+import Factory.NoSuchEmployerException;
 import Produits.ProductType;
 import Produits.Produit;
 import Rayons.Rayon;
@@ -57,7 +59,17 @@ public abstract class SuperMarket extends Observable{
 			this.setRayon(rayon);
 		}
 	}
+	public void addEmployers(String firstName, String lastName, String type){
+		try {
+			employes.add(new EmployerFactory().createEmployer(firstName, lastName, type));
+		} catch (NoSuchEmployerException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 	
+	public Set<Employer> getEmployer(){
+		return employes;	
+	}
 	public String getName() {
 		return this.name;
 	}

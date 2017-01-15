@@ -2,6 +2,7 @@ package Test;
 
 import Supermarket.Entreprise;
 import Vue.CommandeView;
+import Vue.EmployersView;
 import Vue.Fenetre;
 import Vue.Market;
 import Vue.MarketsVue;
@@ -17,6 +18,7 @@ public class Main {
 		frame.addPane(new Market(adamAlpi));
 		frame.addPane(new CommandeView(adamAlpi));
 		frame.addPane(new SalesView(adamAlpi));
+		frame.addPane(new EmployersView(adamAlpi));
 	}
 	
 }

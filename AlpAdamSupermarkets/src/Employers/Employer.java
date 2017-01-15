@@ -11,4 +11,15 @@ public abstract class Employer {
 	
 	public abstract double salary();
 	
+	@Override
+	public String toString() {
+		return this.firstName +" " + this.lastName;
+	}
+	
+	public String getName(){
+		return this.firstName;
+	}
+	public String getLast(){
+		return this.lastName;
+	}
 }
