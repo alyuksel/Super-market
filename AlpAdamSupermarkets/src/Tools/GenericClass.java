@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import Factory.ProductFactory;
 import Produits.Produit;
 
 
@@ -55,8 +57,15 @@ public class GenericClass {
 		return 0;
 	}
 	
-	public static <T> Stream<T> getFiltredStream(Stream<T> st, Predicate<? super T> funct){
-		return st.filter(funct);
+	public static Set<Produit> getFiltredProd(Stream<String> st, Predicate<Produit> funct){
+		ProductFactory fact = new ProductFactory();
+		return st.map(s->{try {
+			return fact.createProduct(s);
+		}catch (Exception e) {return null;}
+			})
+			.filter(p->funct.test(p))
+			.collect(Collectors.toSet());
 	}
+	
 	
 }

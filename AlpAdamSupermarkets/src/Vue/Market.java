@@ -3,9 +3,13 @@ package Vue;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
+import java.util.function.Predicate;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,10 +21,15 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import sun.net.www.content.text.Generic;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import Factory.NoSuchProductException;
 import Factory.ProductFactory;
 import Produits.Produit;
 import Supermarket.Entreprise;
+import Tools.GenericClass;
 
 
 public class Market extends JPanel implements Observer {
@@ -68,17 +77,24 @@ public class Market extends JPanel implements Observer {
 			}break;
 			
 			case "All":{
-				clearTable();
 				for(String s : allProduct.keySet()){
 					Produit p = fact.createProduct(s);
 					model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(s),p.getPrice()});
 				}
 			}break;
 			
+			case "Inferieur à" : {
+				GenericClass.getFiltredProd(allProduct.keySet().stream(),(Produit p)-> p.getPrice()<Double.valueOf(text.getText()))
+				.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()),p.getPrice()}));
+			}break;
+			case "Superieur à" : {
+				GenericClass.getFiltredProd(allProduct.keySet().stream(),(Produit p)-> p.getPrice()>Double.valueOf(text.getText()))
+				.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()),p.getPrice()}));
+			}break;
 			default:
 				break;
 			}
-		} catch (NoSuchProductException e) {e.printStackTrace();} 
+		} catch (NoSuchProductException e) {} 
 	}
 
 
