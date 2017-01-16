@@ -4,9 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import BDD.Data;
 import Employers.Employer;
@@ -52,7 +54,6 @@ public class Entreprise extends Observable{
 					Produit p = productFactory.createProduct(resprod.getString("name"));
 					if(resprod.getInt("promo")>0){
 						p = new Promotion(p,resprod.getInt("promo"));
-						System.out.println(p.getLabel());
 					}
 					
 					this.supermarkets.get(resprod.getString("market")).getRays()
@@ -127,9 +128,25 @@ public class Entreprise extends Observable{
 	public void addEmployerInSupermarkets(String firstName, String lastName, String type,String market){
 		this.supermarkets.values().forEach(s -> {if(s.getName().equals(market)){s.addEmployers(firstName, lastName, type);s.addEmployerToManage();}});
 	}
+	public void setProductOnPromo(String label,int pourcentage){
+		Set<Promotion> promo = new HashSet<>();
+		this.getCurrentMarket().rayons.values()
+							   .stream()
+							   .map(p->p.getMapProduct())
+							   .flatMap(e->e.values().stream())
+							   .flatMap(l->l.stream())
+							   .filter(p->p.getLabel().equals(label))
+							   .forEach(p-> promo.add(new Promotion(p,pourcentage)));
+		
+		this.getCurrentMarket().addProduct(promo);
+		this.getCurrentMarket().removeProduct(label);
+	}
+	
 	public void update(){
 		setChanged();
 		notifyObservers();
 	}
+	
+
 	
 }

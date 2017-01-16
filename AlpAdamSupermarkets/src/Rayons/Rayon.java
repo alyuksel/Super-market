@@ -68,5 +68,8 @@ public abstract class Rayon {
 				.map(prod -> prod.getPrice())
 				.collect(Collectors.toList());
 	}
+	public void removeProduct(String label){
+		this.mapProduct.remove(label);
+	}
 	
 }

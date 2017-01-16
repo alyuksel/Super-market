@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
@@ -53,7 +54,12 @@ public abstract class SuperMarket extends Observable{
 		rayons.put(rayon.getProductType(), rayon);
 		return true;
 	}
-	
+	public void removeProduct(String label){
+		Iterator<Rayon> iter = this.rayons.values().iterator();
+		while(iter.hasNext()){
+			iter.next().removeProduct(label);
+		}
+	}
 	public void setRayons(ArrayList<Rayon> instal){
 		for (Rayon rayon : instal) {
 			this.setRayon(rayon);
