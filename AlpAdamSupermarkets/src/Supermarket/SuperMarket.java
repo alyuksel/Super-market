@@ -70,6 +70,24 @@ public abstract class SuperMarket extends Observable{
 	public Set<Employer> getEmployer(){
 		return employes;	
 	}
+	
+	public boolean addEmployerToManage(){
+		Set<Employer> basic = this.employes
+							.stream()
+							.filter(e -> (!e.isManager()))
+							.collect(Collectors.toSet());
+		Set<Employer> managers = this.employes
+								.stream()
+								.filter(e -> e.isManager())
+								.collect(Collectors.toSet());
+		
+		for (Employer m : managers ){
+			return m.addEmployees(basic);
+		}
+		return false;
+			
+		
+	}
 	public String getName() {
 		return this.name;
 	}
@@ -112,7 +130,7 @@ public abstract class SuperMarket extends Observable{
 	
 	public Map<String,Integer> toStringInt(){
 		Map<String,Integer> map = new HashMap<String,Integer>();
-		rayons.values().forEach(r->r.getMapProduct().forEach((k,v)->map.put(k,v.size())) );
+		rayons.values().forEach(r->r.getMapProduct().forEach((k,v)->map.put(k,v.size())));
 		return map;
 	}
 }

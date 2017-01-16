@@ -125,7 +125,7 @@ public class Entreprise extends Observable{
 		this.getCurrentMarket().addEmployers(firstName, lastName, type);
 	}
 	public void addEmployerInSupermarkets(String firstName, String lastName, String type,String market){
-		this.supermarkets.values().forEach(s -> {if(s.getName().equals(market))s.addEmployers(firstName, lastName, type);});
+		this.supermarkets.values().forEach(s -> {if(s.getName().equals(market)){s.addEmployers(firstName, lastName, type);s.addEmployerToManage();}});
 	}
 	public void update(){
 		setChanged();
