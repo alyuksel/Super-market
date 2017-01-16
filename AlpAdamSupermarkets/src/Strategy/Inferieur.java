@@ -1,5 +1,6 @@
 package Strategy;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JTextField;
@@ -15,9 +16,10 @@ public class Inferieur extends Choice {
 	}
 
 	@Override
-	public void eval(DefaultTableModel model, Map<String, Integer> allProduct, JTextField text) {
-		GenericClass.getFiltredProd(allProduct.keySet().stream(),(Produit p)-> p.getPrice()<Double.valueOf(text.getText()))
-		.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()),p.getPrice()}));
+	public void eval(DefaultTableModel model, Map<String,ArrayList<Produit>> allProduct, JTextField text) {
+		GenericClass.getFiltredProd(allProduct,(Produit p)-> p.getPrice()<Double.valueOf(text.getText()))
+		.forEach(p->model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(p.getLabel()).size(),p.getPrice()}));
+	
 	}
 
 	

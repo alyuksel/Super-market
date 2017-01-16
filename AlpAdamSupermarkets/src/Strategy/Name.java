@@ -1,5 +1,6 @@
 package Strategy;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JTextField;
@@ -16,14 +17,11 @@ public class Name extends Choice {
 	}
 
 	@Override
-	public void eval(DefaultTableModel model, Map<String, Integer> allProduct,JTextField text) {
-		ProductFactory fact = new ProductFactory();
-		Produit p;
-		try {
-			p = fact.createProduct(text.getText());
-			model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(text.getText()),p.getPrice()});
-		} catch (NoSuchProductException e) {}
-		
+	public void eval(DefaultTableModel model, Map<String,ArrayList<Produit>> allProduct,JTextField text) {
+		Produit p = null;
+		if(!allProduct.get(text.getText()).isEmpty()){
+			p = allProduct.get(text.getText()).get(0);
+		}
+		model.addRow(new Object[]{p.getProductType(),p.getLabel(),allProduct.get(text.getText()).size(),p.getPrice()});
 	}
-
 }

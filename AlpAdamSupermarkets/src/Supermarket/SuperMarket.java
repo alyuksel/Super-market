@@ -134,9 +134,9 @@ public abstract class SuperMarket extends Observable{
 		notifyObservers();
 	}
 	
-	public Map<String,Integer> toStringInt(){
-		Map<String,Integer> map = new HashMap<String,Integer>();
-		rayons.values().forEach(r->r.getMapProduct().forEach((k,v)->map.put(k,v.size())));
+	public Map<String,ArrayList<Produit>> flatRays(){
+		Map<String,ArrayList<Produit>> map = new HashMap<String,ArrayList<Produit>>();
+		rayons.values().forEach(r->r.getMapProduct().forEach((k,v)->map.put(k,v)));
 		return map;
 	}
 }

@@ -48,7 +48,7 @@ public class EmployersView extends JPanel implements Observer{
 		}
 		model.setNumRows(0);
 		for(Employer e : entreprise.getCurrentMarket().getEmployer()){
-			model.addRow(new Object[]{e.getName(),e.getLast(),e.getClass().getName(),e.toString(),e.salary()});
+			model.addRow(new Object[]{e.getName(),e.getLast(),e.getClass().getSimpleName(),e.toString(),e.salary()});
 		}
 			
 	}

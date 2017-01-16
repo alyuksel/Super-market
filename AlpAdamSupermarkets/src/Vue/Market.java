@@ -3,6 +3,7 @@ package Vue;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Produits.Produit;
 import Strategy.All;
 import Strategy.Choice;
 import Strategy.Inferieur;
@@ -60,7 +62,7 @@ public class Market extends JPanel implements Observer {
 	}
 
 	private void toDisplay(Object val) {
-		Map<String,Integer> allProduct = entreprise.getCurrentMarket().toStringInt();
+		Map<String,ArrayList<Produit>> allProduct = entreprise.getCurrentMarket().flatRays();
 		Choice item = (Choice) val;
 		item.eval(model, allProduct, text);
 	}

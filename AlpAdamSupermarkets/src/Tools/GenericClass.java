@@ -3,6 +3,7 @@ package Tools;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -58,14 +59,13 @@ public class GenericClass {
 		return 0;
 	}
 	
-	public static Set<Produit> getFiltredProd(Stream<String> st, Predicate<Produit> funct){
-		ProductFactory fact = new ProductFactory();
-		return st.map(s->{try {
-			return fact.createProduct(s);
-		}catch (NoSuchProductException e) {return null;}
-			})
-			.filter(p->funct.test(p))
-			.collect(Collectors.toSet());
+	public static Set<Produit> getFiltredProd(Map<String,ArrayList<Produit>> map, Predicate<Produit> funct){
+		Set<Produit> res = new HashSet<Produit>();
+		 map.values().stream()
+				.filter(l->!l.isEmpty())
+				.filter(l->funct.test(l.get(0)))
+				.forEach(l->res.add(l.get(0)));
+		 return res;
 	}
 	
 	
