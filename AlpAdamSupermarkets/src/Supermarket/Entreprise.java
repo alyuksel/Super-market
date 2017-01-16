@@ -17,6 +17,8 @@ import Factory.NoSuchRayonException;
 import Factory.ProductFactory;
 import Factory.RayonFactory;
 import Produits.ProductType;
+import Produits.Produit;
+import Produits.Promotion;
 
 public class Entreprise extends Observable{
 	private static Entreprise isInstanciate = null;
@@ -47,14 +49,21 @@ public class Entreprise extends Observable{
 			ResultSet resprod = data.select("select * from Produit");
 			while(resprod.next()){
 				for(int i = 0; i<resprod.getInt("number");i++){
+					Produit p = productFactory.createProduct(resprod.getString("name"));
+					if(resprod.getInt("promo")>0){
+						p = new Promotion(p,resprod.getInt("promo"));
+						System.out.println(p.getLabel());
+					}
+					
 					this.supermarkets.get(resprod.getString("market")).getRays()
 									.get(ProductType.valueOf(resprod.getString("type")))
-									.addProduct(productFactory.createProduct(resprod.getString("name")));
+									.addProduct(p);
 				}
 			}
 			ResultSet employers = data.select("select * from Employer");
 			while(employers.next()){
 				this.addEmployerInSupermarkets(employers.getString("prenom"),employers.getString("nom"),employers.getString("type"),employers.getString("market"));
+				
 			}
 			
 		} catch (ClassNotFoundException | SQLException | NoSuchMarketException | NoSuchProductException | NoSuchRayonException e) {

@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import Factory.NoSuchProductException;
 import Factory.ProductFactory;
 import Produits.Produit;
 
@@ -61,7 +62,7 @@ public class GenericClass {
 		ProductFactory fact = new ProductFactory();
 		return st.map(s->{try {
 			return fact.createProduct(s);
-		}catch (Exception e) {return null;}
+		}catch (NoSuchProductException e) {return null;}
 			})
 			.filter(p->funct.test(p))
 			.collect(Collectors.toSet());
