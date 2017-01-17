@@ -23,6 +23,7 @@ import Strategy.All;
 import Strategy.Choice;
 import Strategy.Inferieur;
 import Strategy.Name;
+import Strategy.Promo;
 import Strategy.Superieur;
 import Supermarket.Entreprise;
 
@@ -50,7 +51,7 @@ public class Market extends JPanel implements Observer {
 	
 	private Component addSort() {
 		JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JComboBox<Choice> combo = new JComboBox<Choice>(new Choice[]{ new All(),new Name(),new Superieur(), new Inferieur()});
+		JComboBox<Choice> combo = new JComboBox<Choice>(new Choice[]{ new All(),new Name(),new Superieur(), new Inferieur(),new Promo()});
 		JButton ok = new JButton("Valider");
 		ok.addActionListener(l->{
 			clearTable();

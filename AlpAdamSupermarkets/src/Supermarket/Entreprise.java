@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import BDD.Data;
 import Employers.Employer;
@@ -99,6 +98,7 @@ public class Entreprise extends Observable{
 		data.requete("delete from Produit where market='"+name+"'");
 		data.requete("delete from Rayon where market='"+name+"'");
 		data.requete("delete from Ventes where market='"+name+"'");
+		data.requete("delete from Employer where market ='"+name+"'");
 	}
 	
 	
@@ -140,6 +140,7 @@ public class Entreprise extends Observable{
 		
 		this.getCurrentMarket().addProduct(promo);
 		this.getCurrentMarket().removeProduct(label);
+		this.getCurrentMarket().update();
 	}
 	
 	public void update(){

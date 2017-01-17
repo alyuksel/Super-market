@@ -31,6 +31,7 @@ public class Sales {
 		ProductType type = ProductType.Beauty;
 		double price = 0;
 		int numberOfSoldProduct = 0;
+		recette = 0;
 		if(market.getProduct().contains(produit)){
 			try {
 				type = new ProductFactory().createProduct(produit).getProductType();
