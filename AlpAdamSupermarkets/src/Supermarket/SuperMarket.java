@@ -120,7 +120,9 @@ public abstract class SuperMarket extends Observable{
 			.flatMap(r -> r.getProduit().stream())
 			.collect(Collectors.toSet());
 	}
-	
+	public Produit getProduct(String label){
+		return this.flatRays().get(label).get(0);
+	}
 	public Map<ProductType,Rayon> getRays(){
 		return rayons;
 	}

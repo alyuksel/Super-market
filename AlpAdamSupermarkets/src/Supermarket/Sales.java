@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import BDD.Data;
-import Factory.NoSuchProductException;
-import Factory.ProductFactory;
 import Produits.ProductType;
 import Produits.Produit;
 
@@ -33,10 +31,9 @@ public class Sales {
 		int numberOfSoldProduct = 0;
 		recette = 0;
 		if(market.getProduct().contains(produit)){
-			try {
-				type = new ProductFactory().createProduct(produit).getProductType();
-				price = new ProductFactory().createProduct(produit).getPrice();
-			} catch (NoSuchProductException e) {System.err.println(e.getMessage());}
+			type = market.getProduct(produit).getProductType();
+			price = market.getProduct(produit).getPrice();
+				 
 			for(int i=0;i<Integer.valueOf(number);i++){
 				sales.add(market.getRays().get(type).getMapProduct().get(produit).get(i));
 				market.getRays().get(type).getMapProduct().get(produit).remove(i);

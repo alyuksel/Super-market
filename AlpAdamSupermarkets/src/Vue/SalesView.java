@@ -16,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import Produits.AllProduct;
 import Supermarket.Entreprise;
 import Supermarket.Sales;
 
@@ -57,7 +56,7 @@ public class SalesView extends JPanel implements Observer {
 		formPanel.add(this.recetteLabel);
 		this.erreur.setForeground(Color.RED);
 		formPanel.add(this.erreur);
-		saleButton.addActionListener(e-> {if((AllProduct.AllProductList().contains(produit.getText()))&&(!Integer.valueOf(quantite.getText()).equals(0)))
+		saleButton.addActionListener(e-> {if((entreprise.getCurrentMarket().flatRays().containsKey(produit.getText()))&&(!Integer.valueOf(quantite.getText()).equals(0)))
 			{sales.productSold(produit.getText().trim(),quantite.getText().trim());this.erreur.setText("");}
 				else this.erreur.setText("erreur de saisie");;});
 		sales = new Sales();
