@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public enum AllProduct {
-	nivea,nutella,yvesrocher,prince;
+	nivea,
+	nutella,
+	yvesrocher,
+	prince,
+	cocacola,
+	xmen,
+	jeanlevis,
+	tv,
+	mrpropre;
 	
 	
 	public static String[] getStrings() {

@@ -73,6 +73,8 @@ public abstract class SuperMarket extends Observable{
 		}
 	}
 	
+	
+	
 	public Set<Employer> getEmployer(){
 		return employes;	
 	}

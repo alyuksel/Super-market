@@ -1,11 +1,16 @@
 package Factory;
 
 
+import Produits.CocaCola;
+import Produits.JeanLevis;
+import Produits.MrPropre;
 import Produits.Nivea;
 import Produits.Nutella;
 import Produits.Prince;
 import Produits.ProductType;
 import Produits.Produit;
+import Produits.TV;
+import Produits.Xmen;
 import Produits.YvesRocher;
 
 public class ProductFactory {
@@ -19,6 +24,16 @@ public class ProductFactory {
 			return new YvesRocher();
 		case "prince":
 			return new Prince();
+		case "cocacola":
+			return new CocaCola();
+		case "xmen":
+			return new Xmen();
+		case"jeanlevis":
+			return new JeanLevis();
+		case "tv":
+			return new TV();
+		case "mrpropre":
+			return new MrPropre();
 		default:
 			throw new NoSuchProductException();
 		}

@@ -60,20 +60,9 @@ public class Manager extends Employer{
 		return this.firstName + " " + this.lastName+" dirige : \n"
 	+ subalterns(p -> p.getClass().equals(Caissier.class)) + " Caissiers et \n" 
 	+ subalterns(p -> p.getClass().equals(Manutentionnaire.class))
-	+ " Manitentionnaires et \n" + subalterns(p -> p.getClass().equals(Manager.class)) 
-	+ " Manager \n"; 
+	+ " Manitentionnaires \n" ; 
 	
 	}
 	
 	
-	public static void main(String[] args) {
-		Manager manager = new Manager("Adam", "Mihoubi");
-		Manager manager2 = new Manager("Alp", "Yuksel");
-		Manutentionnaire manutentionnaire = new Manutentionnaire("Pascal", "Yu");
-		Caissier caissier = new Caissier("Bastien", "Matthai");
-		manager2.addAnEmployee(manutentionnaire);
-		manager.addAnEmployee(caissier);
-		manager.addAnEmployee(manager2);
-		System.out.println(manager);
-	}
 }

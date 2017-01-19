@@ -121,10 +121,23 @@ public class Entreprise extends Observable{
 	public Set<Employer> employers(){
 		return getCurrentMarket().getEmployer();
 	}
-	
+	public boolean isAlreadyAManager(){
+		for(Employer e : this.getCurrentMarket().getEmployer()){
+			if(e.isManager())
+				return true;
+		}
+		return false;
+	}
 	public void addEmployer(String firstName, String lastName, String type){
 		this.getCurrentMarket().addEmployers(firstName, lastName, type);
+		this.getCurrentMarket().addEmployerToManage();
+		this.data.requete("insert into Employer(nom,prenom,type,market) values ('"+firstName+"','"+lastName+"','"+type+"','"+this.getCurrentMarket().getName()+"')");
+		this.update();
 	}
+	public boolean addEmployerToManage(){
+		return this.getCurrentMarket().addEmployerToManage();
+	}
+
 	public void addEmployerInSupermarkets(String firstName, String lastName, String type,String market){
 		this.supermarkets.values().forEach(s -> {if(s.getName().equals(market)){s.addEmployers(firstName, lastName, type);s.addEmployerToManage();}});
 	}
