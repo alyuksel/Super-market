@@ -153,6 +153,7 @@ public class Entreprise extends Observable{
 		
 		this.getCurrentMarket().addProduct(promo);
 		this.getCurrentMarket().removeProduct(label);
+		this.data.requete("update Produit set promo = "+pourcentage+" where name = '"+label+"'");
 		this.getCurrentMarket().update();
 	}
 	

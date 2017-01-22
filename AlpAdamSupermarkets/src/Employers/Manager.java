@@ -60,7 +60,7 @@ public class Manager extends Employer{
 		return this.firstName + " " + this.lastName+" dirige : \n"
 	+ subalterns(p -> p.getClass().equals(Caissier.class)) + " Caissiers et \n" 
 	+ subalterns(p -> p.getClass().equals(Manutentionnaire.class))
-	+ " Manitentionnaires \n" ; 
+	+ " Manutentionnaires \n" ; 
 	
 	}
 	
